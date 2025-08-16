@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title>تست استخراج اطلاعات از ویس</title>
+  <style>
+    body {
+      font-family: tahoma, sans-serif;
+      background: #f3f4f6;
+      padding: 2rem;
+      text-align: center;
+    }
+    form {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      display: inline-block;
+    }
+    input[type=file] {
+      margin: 1rem 0;
+    }
+    button {
+      background: #2563eb;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #1e40af;
+    }
+    pre {
+      text-align: left;
+      background: #1e293b;
+      color: #f8fafc;
+      padding: 1rem;
+      border-radius: 8px;
+      max-width: 600px;
+      margin: 2rem auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎤 تست نرم‌افزار استخراج اطلاعات</h1>
+  <form id="uploadForm" enctype="multipart/form-data">
+    <input type="file" name="audio" accept="audio/*" required />
+    <br>
+    <button type="submit">ارسال و پردازش</button>
+  </form>
+
+  <h2>نتیجه:</h2>
+  <pre id="result">اینجا نمایش داده می‌شود...</pre>
+
+  <script>
+    const form = document.getElementById("uploadForm");
+    const resultBox = document.getElementById("result");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+
+      resultBox.textContent = "⏳ در حال پردازش...";
+
+      try {
+        const res = await fetch("/upload-audio", {
+          method: "POST",
+          body: formData
+        });
+        const data = await res.json();
+        resultBox.textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        resultBox.textContent = "❌ خطا: " + err.message;
+      }
+    });
+  </script>
+</body>
+</html>

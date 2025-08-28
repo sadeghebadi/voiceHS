@@ -11,6 +11,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@livekit/agents": "^0.7.9",
+    "@livekit/agents-plugin-cartesia": "^0.1.4",
+    "@livekit/agents-plugin-openai": "^0.9.3",
+    "@livekit/agents-plugin-silero": "^0.5.9",
+    "@livekit/rtc-node": "^0.13.18",
     "axios": "^1.11.0",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
